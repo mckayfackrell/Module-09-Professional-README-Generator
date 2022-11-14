@@ -5,7 +5,6 @@ const fs = require("fs");
 const createREADME = (
   title,
   description,
-  contents,
   installation,
   usage,
   license,
@@ -24,7 +23,13 @@ const createREADME = (
   ${description}
   
   ## Contents
-  ${contents}
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [License](#license)
+  - [Contributing](#contributing)
+  - [Tests](#tests)
+  - [Questions](#questions)
    
   ## Installation
   ${installation}
@@ -81,19 +86,6 @@ inquirer.prompt([
     },
   },
   {
-    name: "contents",
-    type: "input",
-    message: "please add table of contents if your README file is long",
-    validate: (contentsInput) => {
-      if (contentsInput) {
-        return true;
-      } else {
-        console.log("Please add table of contents if your README file is long");
-        return false;
-      }
-    },
-  },
-  {
     type: "input",
     name: "installation",
     message: "describe how to install your application",
@@ -141,10 +133,10 @@ inquirer.prompt([
   },
   {
     type: "input",
-    name: "contribution",
+    name: "contributions",
     message: "state any contributions made",
-    validate: (contributionInput) => {
-      if (contributionInput) {
+    validate: (contributionsInput) => {
+      if (contributionsInput) {
         return true;
       } else {
         console.log("Please state any contributions made");
@@ -214,7 +206,6 @@ inquirer.prompt([
 .then ((answers) => {
   const { title,
     description,
-    contents,
     installation,
     usage,
     license,
@@ -230,7 +221,6 @@ inquirer.prompt([
       "README.md",
       createREADME(title,
         description,
-        contents,
         installation,
         usage,
         license,
