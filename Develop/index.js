@@ -1,10 +1,58 @@
-// TODO: Include packages needed for this application
+// Packages needed for this application
+const inquirer = require("inquirer");
+const fs = require("fs");
 
-// TODO: Create an array of questions for user input
-const questions = [
+const createREADME = (
+  title,
+  description,
+  contents,
+  installation,
+  usage,
+  license,
+  contributions,
+  tests,
+  questions
+) => {
+  // README file that contains the specific contents answered in the questions
+  const README = 
+  `# ${title}
+
+  ## Description
+  ${description}
+  
+  ## Contents
+  ${contents}
+   
+  ## Installation
+  ${installation}
+  
+  ## Usage
+  ${usage}
+
+  
+  ## License
+  ${license}
+  Please refer to the LICENSE in the repo.
+  
+  ## Contributions
+  ${contributions}
+  
+  ## Tests
+  ${tests}
+
+  ## Questions
+  ${questions}
+  `;
+
+  return README;
+};
+
+//Array of questions for user input
+// const questions = 
+inquirer.prompt([
   {
-    type: "input",
     name: "title",
+    type: "input",
     message: "what is the title of your README file",
     validate: (titleInput) => {
       if (titleInput) {
@@ -16,8 +64,8 @@ const questions = [
     },
   },
   {
-    type: "input",
     name: "description",
+    type: "input",
     message: "describe what your application is doing",
     validate: (descriptionInput) => {
       if (descriptionInput) {
@@ -29,8 +77,8 @@ const questions = [
     },
   },
   {
-    type: "input",
     name: "contents",
+    type: "input",
     message: "please add table of contents if your README file is long",
     validate: (contentsInput) => {
       if (contentsInput) {
@@ -72,22 +120,22 @@ const questions = [
     name: "license",
     message: "describe what license your application uses",
     choices: [
-      'None',
-      'Apache License 2.0',
-      'GNU General Public License v3.0',
-      'MIT License',
+      "None",
+      "Apache License 2.0",
+      "GNU General Public License v3.0",
+      "MIT License",
       'BSD 2-Clause "Simplified" License',
       'BSD 3-Clause "New" or "Revised" License',
-      'Boost Software License 1.0',
-      'Creative Commons Zero v1.0 Universal',
-      'Eclipse Public License 2.0',
-      'GNU Affero General Public License v3.0',
-      'GNU General Public License v2.0',
-      'GNU Lesser General Public License v2.1',
-      'Mozilla Public License 2.0',
-      'The Unlicense'
-    ]
-    },
+      "Boost Software License 1.0",
+      "Creative Commons Zero v1.0 Universal",
+      "Eclipse Public License 2.0",
+      "GNU Affero General Public License v3.0",
+      "GNU General Public License v2.0",
+      "GNU Lesser General Public License v2.1",
+      "Mozilla Public License 2.0",
+      "The Unlicense",
+    ],
+  },
   {
     type: "input",
     name: "contribution",
@@ -122,18 +170,55 @@ const questions = [
       if (questionsInput) {
         return true;
       } else {
-        console.log("Please provide common questions that a user may have for your application");
+        console.log(
+          "Please provide common questions that a user may have for your application"
+        );
         return false;
       }
     },
   },
-];
+])
+.then ((answers) => {
+  const { title,
+    description,
+    contents,
+    installation,
+    usage,
+    license,
+    contributions,
+    tests,
+    questions} = answers;
+
+    console.log(answers);
+    fs.writeFile(
+      "README.md",
+      createREADME(title,
+        description,
+        contents,
+        installation,
+        usage,
+        license,
+        contributions,
+        tests,
+        questions),
+        (error) => {
+          if (error) throw error;
+        }
+    );
+})
+.catch ((error) => {
+  if (error.isTtyError) {
+    `Prompt could not be rendered in the current environment`
+  } else {
+    `Something else went wrong`
+  }
+});
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+// function writeToFile(fileName, data) {}
 
 // TODO: Create a function to initialize app
-function init() {}
+// function init() {}
 
 // Function call to initialize app
-init();
+// init();
