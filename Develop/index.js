@@ -11,11 +11,14 @@ const createREADME = (
   license,
   contributions,
   tests,
-  questions
+  questions,
+  username,
+  email
 ) => {
   // README file that contains the specific contents answered in the questions
-  const README = 
-  `# ${title}
+  const README = `
+  # ${title}
+  ![badge](https://img.shields.io/badge/license-${license}-brightgreen)<br />
 
   ## Description
   ${description}
@@ -29,10 +32,10 @@ const createREADME = (
   ## Usage
   ${usage}
 
-  
   ## License
-  ${license}
-  Please refer to the LICENSE in the repo.
+  ![badge](https://img.shields.io/badge/license-${license}-brightgreen)
+  <br/>
+  This application is covered by the ${license} license. 
   
   ## Contributions
   ${contributions}
@@ -41,14 +44,15 @@ const createREADME = (
   ${tests}
 
   ## Questions
-  ${questions}
+  ${questions}<br/>
+  Find me on GitHub: [${username}](https://github.com/${username})<br/>
+  Email me with any questions: ${email}<br /><br />
   `;
 
   return README;
 };
 
 //Array of questions for user input
-// const questions = 
 inquirer.prompt([
   {
     name: "title",
@@ -121,19 +125,18 @@ inquirer.prompt([
     message: "describe what license your application uses",
     choices: [
       "None",
-      "Apache License 2.0",
-      "GNU General Public License v3.0",
-      "MIT License",
-      'BSD 2-Clause "Simplified" License',
-      'BSD 3-Clause "New" or "Revised" License',
-      "Boost Software License 1.0",
-      "Creative Commons Zero v1.0 Universal",
-      "Eclipse Public License 2.0",
-      "GNU Affero General Public License v3.0",
-      "GNU General Public License v2.0",
-      "GNU Lesser General Public License v2.1",
-      "Mozilla Public License 2.0",
-      "The Unlicense",
+      "Apache_2.0",
+      "GPLv3",
+      "MIT",
+      'BSD_2--Clause',
+      'BSD_3--Clause',
+      "Boost_1.0",
+      "CC0_1.0",
+      "EPL_2.0",
+      "AGPL_v3",
+      "GPL_v2",
+      "MPL_2.0",
+      "Unlicense",
     ],
   },
   {
@@ -177,6 +180,36 @@ inquirer.prompt([
       }
     },
   },
+  {
+    type: "input",
+    name: "email",
+    message: "what is your email address",
+    validate: (questionsInput) => {
+      if (questionsInput) {
+        return true;
+      } else {
+        console.log(
+          "Please provide your email address"
+        );
+        return false;
+      }
+    },
+  },
+  {
+    type: "input",
+    name: "username",
+    message: "what is your GitHub username",
+    validate: (questionsInput) => {
+      if (questionsInput) {
+        return true;
+      } else {
+        console.log(
+          "Please enter your GitHub username"
+        );
+        return false;
+      }
+    },
+  },
 ])
 .then ((answers) => {
   const { title,
@@ -187,9 +220,12 @@ inquirer.prompt([
     license,
     contributions,
     tests,
-    questions} = answers;
+    questions,
+    username,
+    email} = answers;
 
     console.log(answers);
+    // A function to write README file
     fs.writeFile(
       "README.md",
       createREADME(title,
@@ -200,7 +236,9 @@ inquirer.prompt([
         license,
         contributions,
         tests,
-        questions),
+        questions, 
+        username,
+        email),
         (error) => {
           if (error) throw error;
         }
@@ -213,12 +251,3 @@ inquirer.prompt([
     `Something else went wrong`
   }
 });
-
-// TODO: Create a function to write README file
-// function writeToFile(fileName, data) {}
-
-// TODO: Create a function to initialize app
-// function init() {}
-
-// Function call to initialize app
-// init();
