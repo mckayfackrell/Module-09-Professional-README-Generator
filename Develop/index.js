@@ -174,21 +174,6 @@ inquirer.prompt([
   },
   {
     type: "input",
-    name: "email",
-    message: "what is your email address",
-    validate: (questionsInput) => {
-      if (questionsInput) {
-        return true;
-      } else {
-        console.log(
-          "Please provide your email address"
-        );
-        return false;
-      }
-    },
-  },
-  {
-    type: "input",
     name: "username",
     message: "what is your GitHub username",
     validate: (questionsInput) => {
@@ -202,6 +187,22 @@ inquirer.prompt([
       }
     },
   },
+  {
+    type: "input",
+    name: "email",
+    message: "what is your email address",
+    validate: (questionsInput) => {
+      if (questionsInput) {
+        return true;
+      } else {
+        console.log(
+          "Please provide your email address"
+        );
+        return false;
+      }
+    },
+  },
+
 ])
 .then ((answers) => {
   const { title,
