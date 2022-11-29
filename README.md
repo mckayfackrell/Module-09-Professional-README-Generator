@@ -9,6 +9,10 @@ This command-line application allows a user to dynamically generate a README.md 
 ## License
 Please refer to the LICENSE in the repo.
 
+## Video
+Here is a video showing the final product.
+https://drive.google.com/file/d/1csiuDMaifBTK6TXFpN3SeBh3iHDrJU_8/view?usp=sharing
+
 ## Project status
 A week long course that should be submitted on November 15, 2022. Once submitted changes will most likely cease as new repositories going over new coding features will be added and more focus will be dedicated to them.
 
